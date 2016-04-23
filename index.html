@@ -1,0 +1,129 @@
+<!doctype html>
+<html lang="en">
+
+	<head>
+		<meta charset="utf-8">
+
+		<title>Joins in flatland</title>
+
+		<meta name="description" content="Why I should test">
+		<meta name="author" content="Vitaliy Haritonsky">
+
+		<meta name="apple-mobile-web-app-capable" content="yes" />
+		<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
+		<link rel="stylesheet" href="lib/css/zenburn.css">
+		<link rel="stylesheet" href="css/reveal.css">
+		<link rel="stylesheet" href="css/theme/solarized.css" id="theme">
+
+
+		<!-- Printing and PDF exports -->
+		<script>
+			var link = document.createElement( 'link' );
+			link.rel = 'stylesheet';
+			link.type = 'text/css';
+			link.href = window.location.search.match( /print-pdf/gi ) ? 'css/print/pdf.css' : 'css/print/paper.css';
+			document.getElementsByTagName( 'head' )[0].appendChild( link );
+		</script>
+
+		<!--[if lt IE 9]>
+		<script src="lib/js/html5shiv.js"></script>
+		<![endif]-->
+	</head>
+	<body>
+		<div class="reveal">
+			<!-- Any section element inside of this container is displayed as a slide -->
+			<div class="slides">
+				<section>
+					<h1>Joins in Flatland</h1>
+				</section>
+				<section>
+					<h1>Elastic</h1>
+					<h2>Do you use it?</h2>
+				</section>
+				<section>
+					<h2>Sharded, document oriented architecture means</h2>
+					<h2>NO JOINS</h2>
+				</section>
+				<section>
+					<h1>NOT TRUE</h1>
+				</section>
+				<section>
+					<h1>Parent-Child relationship</h1>
+					<h2>Introduced before 0.9</h2>
+					<h2>Not very famous/popular/obvious</h2>
+				</section>
+				<section>
+					<h2>Why?</h2>
+					<h2>Normalization of course!</h2>
+				</section>
+				<section>
+					<h1>Before</h1>
+					<h2>21 mln documents</h2>
+					<h2>53 Gb approx.</h2>
+				</section>
+				<section>
+					<h1>After</h1>
+					<h2>21 mln documents</h2>
+					<h2>6.6 Gb approx.</h2>
+					<h2>A WIN!</h2>
+				</section>
+				<section>
+					<h2>HOW?</h2>
+					<pre><code class="javascript">"mappings":{
+        "company": {
+            "dynamic": false,
+            "properties": {
+
+            }
+        },
+        "product": {
+            "_all": {
+                "enabled": false
+            },
+            "_parent": {
+                "type": "company"
+            }
+        }
+}</code></pre>
+				</section>
+				<section>
+					<h1>DRAWBACKS</h1>
+					<h2>Create mappings at once</h2>
+					<h2>Same shard</h2>
+					<h2>Speed?</h2>
+					<h2>Queries</h2>
+				</section>
+				<section>
+					<img height="600px" src="img/flash.png">
+				</section>
+
+				<div style="display: block; position: absolute; bottom: 16px; left: 45%; margin-left: -139px; z-index: 20; font-size: 50%">
+        			<a href="http://vharitonsky.github.io/not_testing/">http://vharitonsky.github.io/joinsflatland/</a>
+    			</div>
+			</div>
+		</div>
+
+		<script src="lib/js/head.min.js"></script>
+		<script src="js/reveal.js"></script>
+
+		<script>
+
+			// Full list of configuration options available at:
+			// https://github.com/hakimel/reveal.js#configuration
+			Reveal.initialize({
+				controls: true,
+				progress: true,
+				history: true,
+				center: true,
+				transition: 'convex', // none/fade/slide/convex/concave/zoom
+			 	dependencies: [
+	        		{ src: 'plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } },
+				]
+			});
+
+		</script>
+
+	</body>
+</html>
